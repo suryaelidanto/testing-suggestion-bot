@@ -1,6 +1,6 @@
 name: suggestion
 
-on: push
+on: pull_request
 
 jobs:
   lint:
@@ -15,6 +15,7 @@ jobs:
       - name: Install
         run: yarn
       - name: ClangFormat
+        if: ${{ github.event_name == 'pull_request' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn suggestion-bot
