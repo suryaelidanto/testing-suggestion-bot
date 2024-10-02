@@ -1,6 +1,6 @@
 jobs:
   lint:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Set up Node.js
         uses: actions/setup-node@v1
@@ -14,4 +14,4 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: scripts/clang-format-diff.sh | yarn suggestion-bot
+        run: yarn suggestion-bot
