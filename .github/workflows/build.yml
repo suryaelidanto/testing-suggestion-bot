@@ -1,0 +1,17 @@
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        run: yarn
+      - name: ClangFormat
+        if: ${{ github.event_name == 'pull_request' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: scripts/clang-format-diff.sh | yarn suggestion-bot
